@@ -89,7 +89,8 @@ The project includes a script for generating fake data using `Faker` and populat
     ```
 ## Demo
 
+![App Demo](https://github.com/manran03/Visualization_Agent/edit/main/Demo.mp3)
 
-**Author**: Your Name
+**Author**: Manan Ranka
 **License**: MIT
 
