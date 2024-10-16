@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NLP Query Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 50px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #333;
+        }
+        .result {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .button:hover {
+            background-color: #000000;
+        }
+        pre, table {
+            background: #f4f4f9;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>NLP Query Interface</h1>
+    <form id="queryForm">
+        <label for="question">Enter your question:</label>
+        <input type="text" id="question" name="question" required>
+        <button type="submit">Submit</button>
+    </form>
+    <div class="result" id="result"></div>
+
+    <script>
+        document.getElementById('queryForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const question = document.getElementById('question').value;
+
+            const response = await fetch('http://localhost:5002/nlpquery', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ question: question })
+            });
+
+            const data = await response.json();
+            displayResult(data);
+        });
+
+        function displayResult(data) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '';
+
+            const fileType = data.type;
+            const fileContent = atob(data.file); // Decode the base64 content
+
+            if (fileType === 'text') {
+                const pre = document.createElement('pre');
+                pre.textContent = fileContent;
+                resultDiv.appendChild(pre);
+            } else if (fileType === 'csv') {
+                const lines = fileContent.split('\n');
+                const table = document.createElement('table');
+                
+                lines.slice(0, 5).forEach((line, index) => {
+                    const row = document.createElement('tr');
+                    line.split(',').forEach(cell => {
+                        const cellElement = index === 0 ? document.createElement('th') : document.createElement('td');
+                        cellElement.textContent = cell;
+                        row.appendChild(cellElement);
+                    });
+                    table.appendChild(row);
+                });
+
+                resultDiv.appendChild(table);
+
+                const downloadLink = document.createElement('a');
+                downloadLink.href = 'data:text/csv;base64,' + data.file;
+                downloadLink.download = 'data.csv';
+                downloadLink.textContent = 'Download CSV';
+                downloadLink.className = 'button';
+                resultDiv.appendChild(downloadLink);
+            } else if (fileType === 'plot') {
+                const img = document.createElement('img');
+                img.src = 'data:image/png;base64,' + data.file;
+                img.style.maxWidth = '100%';
+                img.style.borderRadius = '8px';
+                resultDiv.appendChild(img);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+python-dotenv
+langgraph 
+langchain-community 
+pandas 
+matplotlib 
+langchain-google-genai 
+google-generativeai 
+langchain-experimental
+dash
+dash-bootstrap-components
+flask-cors
