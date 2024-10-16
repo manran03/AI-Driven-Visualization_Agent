@@ -2,6 +2,10 @@
 
 This repository contains a web application that allows users to ask natural language questions, which are converted into SQL queries and executed against a database. The app generates SQL queries, corrects them in case of errors, and processes the data with Python scripts. It supports returning results in text, CSV, or plot formats, and allows saving results as files. Additionally, the project includes functionality for generating fake data with Faker, populating a MongoDB database, and converting it into a SQLite database.
 
+## Demo
+
+[Project Demo](https://github.com/user-attachments/assets/b520faf6-a390-48b7-b728-d7841d612988)
+
 ## Table of Contents
 1. [Project Structure](#project-structure)
 2. [Features](#features)
@@ -10,7 +14,7 @@ This repository contains a web application that allows users to ask natural lang
 5. [API Endpoints](#api-endpoints)
 6. [File Upload Formats](#file-upload-formats)
 7. [Fake Data Generation](#fake-data-generation)
-8. [Demo](#Demo)
+
 
 ## Project Structure
 
@@ -89,9 +93,7 @@ The project includes a script for generating fake data using `Faker` and populat
     ```bash
     python backend/db_converter.py
     ```
-## Demo
 
-[Project Demo](https://github.com/user-attachments/assets/b520faf6-a390-48b7-b728-d7841d612988)
 
 **Author**: Manan Ranka
 **License**: MIT
