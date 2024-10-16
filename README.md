@@ -1,4 +1,4 @@
-# NLP SQL Querying App
+# Natural Language to SQL Query Automation with Python Script Execution
 
 This repository contains a web application that allows users to ask natural language questions, which are converted into SQL queries and executed against a database. The app generates SQL queries, corrects them in case of errors, and processes the data with Python scripts. It supports returning results in text, CSV, or plot formats, and allows saving results as files. Additionally, the project includes functionality for generating fake data with Faker, populating a MongoDB database, and converting it into a SQLite database.
 
@@ -24,6 +24,8 @@ This repository contains a web application that allows users to ask natural lang
 - Converts MongoDB database to SQLite database for querying.
 
 ## Installation
+
+
 
 1. Clone the repository:
     ```bash
@@ -89,7 +91,7 @@ The project includes a script for generating fake data using `Faker` and populat
     ```
 ## Demo
 
-![App Demo](https://github.com/manran03/Visualization_Agent/edit/main/Demo.mp4)
+[Project Demo](https://github.com/user-attachments/assets/b520faf6-a390-48b7-b728-d7841d612988)
 
 **Author**: Manan Ranka
 **License**: MIT
